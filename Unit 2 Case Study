@@ -1,0 +1,32 @@
+
+# YouTube Video Recommendation System using Graph
+
+# Videos and their related videos
+video_graph = {
+    "Python Tutorial": ["Java Tutorial", "DSA Basics"],
+    "Java Tutorial": ["Python Tutorial", "C++ Tutorial"],
+    "DSA Basics": ["Python Tutorial", "Web Development"],
+    "C++ Tutorial": ["Java Tutorial", "DSA Basics"],
+    "Web Development": ["DSA Basics", "HTML Tutorial"],
+    "HTML Tutorial": ["Web Development", "CSS Tutorial"],
+    "CSS Tutorial": ["HTML Tutorial"]
+}
+
+def recommend_videos(video):
+    if video not in video_graph:
+        print("Video not found!")
+        return
+
+    print("\nSelected Video:", video)
+    print("Recommended Videos:")
+
+    for recommended in video_graph[video]:
+        print("-", recommended)
+
+print("Available Videos:")
+for video in video_graph:
+    print("-", video)
+
+selected_video = input("\nEnter a video name: ")
+
+recommend_videos(selected_video)
