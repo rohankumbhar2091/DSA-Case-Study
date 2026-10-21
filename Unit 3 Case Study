@@ -1,0 +1,95 @@
+
+# Undo and Redo System Using Stacks and Linked Lists
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class Stack:
+    def __init__(self):
+        self.top = None
+
+    def push(self, data):
+        new_node = Node(data)
+        new_node.next = self.top
+        self.top = new_node
+
+    def pop(self):
+        if self.top is None:
+            return None
+
+        data = self.top.data
+        self.top = self.top.next
+        return data
+
+    def is_empty(self):
+        return self.top is None
+
+
+class TextEditor:
+    def __init__(self):
+        self.text = ""
+        self.undo_stack = Stack()
+        self.redo_stack = Stack()
+
+    def type_text(self, new_text):
+        self.undo_stack.push(self.text)
+        self.text += new_text
+        self.redo_stack = Stack()
+        print("Text added successfully.")
+
+    def undo(self):
+        if self.undo_stack.is_empty():
+            print("Nothing to undo!")
+            return
+
+        self.redo_stack.push(self.text)
+        self.text = self.undo_stack.pop()
+        print("Undo successful.")
+
+    def redo(self):
+        if self.redo_stack.is_empty():
+            print("Nothing to redo!")
+            return
+
+        self.undo_stack.push(self.text)
+        self.text = self.redo_stack.pop()
+        print("Redo successful.")
+
+    def display(self):
+        print("Current Text:", self.text)
+
+
+editor = TextEditor()
+
+while True:
+    print("\n--- TEXT EDITOR MENU ---")
+    print("1. Type Text")
+    print("2. Undo")
+    print("3. Redo")
+    print("4. Display Text")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        new_text = input("Enter text to add: ")
+        editor.type_text(new_text)
+
+    elif choice == "2":
+        editor.undo()
+
+    elif choice == "3":
+        editor.redo()
+
+    elif choice == "4":
+        editor.display()
+
+    elif choice == "5":
+        print("Exiting Text Editor.")
+        break
+
+    else:
+        print("Invalid choice! Try again.")
