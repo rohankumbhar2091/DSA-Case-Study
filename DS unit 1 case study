@@ -1,0 +1,29 @@
+
+def atm_withdrawal(amount):
+    denominations = [500, 200, 100, 50, 20, 10, 5, 2, 1]
+    notes = {}
+
+    for note in denominations:
+        if amount >= note:
+            count = amount // note
+            amount = amount % note
+            notes[note] = count
+
+    print("ATM Cash Withdrawal Details:")
+    print("----------------------------")
+
+    total_notes = 0
+    for note, count in notes.items():
+        print(f"Rs. {note} x {count} = Rs. {note * count}")
+        total_notes += count
+
+    print("----------------------------")
+    print("Total number of notes/coins:", total_notes)
+
+
+amount = int(input("Enter withdrawal amount (Rs.): "))
+
+if amount > 0:
+    atm_withdrawal(amount)
+else:
+    print("Please enter a valid positive amount.")
